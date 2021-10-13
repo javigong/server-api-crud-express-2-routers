@@ -1,25 +1,25 @@
 // * Challenge:
 
-const express = require('express');
+const express = require("express");
 const app = express();
 
 const PORT = process.env.PORT || 4001;
 
 const currencies = {
   diram: {
-    countries: ['UAE', 'Morocco'],
+    countries: ["UAE", "Morocco"],
   },
   real: {
-    countries: ['Brazil'],
+    countries: ["Brazil"],
   },
   dinar: {
-    countries: ['Algeria', 'Bahrain', 'Jordan', 'Kuwait'],
+    countries: ["Algeria", "Bahrain", "Jordan", "Kuwait"],
   },
   vatu: {
-    countries: ['Vanuatu'],
+    countries: ["Vanuatu"],
   },
   shilling: {
-    countries: ['Tanzania', 'Uganda', 'Somalia', 'Kenya'],
+    countries: ["Tanzania", "Uganda", "Somalia", "Kenya"],
   },
 };
 
@@ -29,12 +29,16 @@ const currencies = {
 
 // * This route handler should replace the countries array of the correct single-currency object with an updated array from the query. It should send the updated array as a response.
 
-app.put('/currencies/:name/countries', (req, res, next) => {
+app.put("/currencies/:name/countries", (req, res, next) => {
   const currencyName = req.params.name;
   const countries = req.query;
 
-  currencies[currencyName] = countries;
-  res.send(currencies[currencyName]);
+  if (currencyName && countries) {
+    currencies[currencyName] = countries;
+    res.send(currencies[currencyName]);
+  } else {
+    res.status(404).send();
+  }
 });
 
 app.listen(PORT, () => {
