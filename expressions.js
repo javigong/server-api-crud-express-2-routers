@@ -1,4 +1,5 @@
 const express = require("express");
+
 const {
   getElementById,
   getIndexById,
@@ -6,11 +7,11 @@ const {
   seedElements,
   createElement,
 } = require("./utils");
-const expressionsRouter = express.Router();
 
-// Data
-const expressions = [];
+let expressions = [];
 seedElements(expressions, "expressions");
+
+expressionsRouter = express.Router();
 
 // Get all expressions
 expressionsRouter.get("/", (req, res, next) => {
