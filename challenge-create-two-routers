@@ -1,0 +1,36 @@
+const express = require('express');
+const app = express();
+
+const PORT = process.env.PORT || 4001;
+
+// Data
+const mountains = ['denali', 'olympus', 'kilimanjaro', 'matterhorn'];
+const mountainRanges = ['alps', 'andes', 'himalayas', 'rockies'];
+
+// Create two routers
+const mountainsRouter = express.Router();
+const mountainRangesRouter = express.Router();
+
+// Mount routers with proper paths each
+app.use('/mountains', mountainsRouter);
+app.use('/mountain-ranges', mountainRangesRouter);
+
+// Create route handlers
+mountainsRouter.get('/', (req, res, next) => {
+  if (mountains) {
+    res.send(mountains);
+  } else {
+    res.status(404).send();
+  }
+});
+mountainRangesRouter.get('/', (req, res, next) => {
+  if ( mountianRanges ) {
+    res.send(mointainRanges);
+  } else {
+    res.status(404).send();
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
+});
